@@ -1,5 +1,6 @@
 module.exports = {
-	ignores: [commit => commit.includes("init")],
+	extends: ["./node_modules/vue-cli-plugin-commitlint/lib/lint"]
+	/*	ignores: [commit => commit.includes("init")],
 	extends: ["@commitlint/config-conventional"],
 	rules: {
 		"body-leading-blank": [2, "always"],
@@ -28,5 +29,5 @@ module.exports = {
 				"release"
 			]
 		]
-	}
+	}*/
 };

@@ -6,4 +6,12 @@ declare global {
 	}
 }
 
+declare global {
+	interface window {
+		$microWidgetProps: any; //全局变量名
+	}
+}
+
+declare const window: any;
+
 export {};

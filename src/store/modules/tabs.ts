@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { TabPaneProps } from "element-plus";
-import { TabsState } from "../interface";
+import { TabsState } from "../types";
 import { HOME_URL, TABS_BLACK_LIST } from "@/config/config";
 import piniaPersistConfig from "@/config/piniaPersist";
 import router from "@/routers/index";

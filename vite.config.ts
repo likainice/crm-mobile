@@ -8,16 +8,17 @@ import viteCompression from "vite-plugin-compression";
 import VueSetupExtend from "vite-plugin-vue-setup-extend";
 //import eslintPlugin from "vite-plugin-eslint";
 import vueJsx from "@vitejs/plugin-vue-jsx";
+import resolveExternalsPlugin from "vite-plugin-resolve-externals";
 //import importToCDN from "vite-plugin-cdn-import";
-// import AutoImport from "unplugin-auto-import/vite";
-import Components from "unplugin-vue-components/vite";
-import { VantResolver } from "unplugin-vue-components/resolvers";
+//import AutoImport from "unplugin-auto-import/vite";
+//import Components from "unplugin-vue-components/vite";
+//import { VantResolver } from "unplugin-auto-import/resolvers";
 
 // @see: https://vitejs.dev/config/
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 	// 当前工作目录路径
 	const root: string = process.cwd();
-	const env = loadEnv(mode, root);
+	const env = loadEnv(mode, root, "");
 	const viteEnv = wrapperEnv(env);
 	return {
 		base: "./",
@@ -51,11 +52,11 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			// 	}
 			// },
 			proxy: {
-				[viteEnv.VITE_PROXY_URL]: {
+				[viteEnv.VITE_PROXY_ROOT]: {
 					target: viteEnv.VITE_API_URL,
 					// ws: true,
 					changeOrigin: true,
-					rewrite: (path: string) => regExps(path, viteEnv.VITE_PROXY_URL)
+					rewrite: (path: string) => regExps(path, viteEnv.VITE_PROXY_ROOT)
 				}
 			}
 		},
@@ -85,13 +86,19 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 					algorithm: "gzip",
 					ext: ".gz"
 				}),
-			// * demand import element(如果使用了cdn引入,没必要使用element自动导入了)
-			// AutoImport({
-			// 	resolvers: [ElementPlusResolver()]
-			// }),
-			Components({
-				resolvers: [VantResolver()]
+			// * vite 配置cdn导入的包文件，类似webpack的externals
+			resolveExternalsPlugin({
+				BMap: "BMap",
+				WwLogin: "WwLogin"
 			})
+
+			// * demand import element(如果使用了cdn引入,没必要使用element自动导入了)
+			/*AutoImport({
+				resolvers: [VantResolver()]
+			}),*/
+			/*Components({
+				resolvers: [VantResolver()]
+			})*/
 			// * cdn 引入（vue、element-plus）
 			// importToCDN({
 			// 	modules: [
@@ -121,6 +128,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 		// build configure
 		build: {
 			outDir: "dist",
+			assetsDir: "static",
 			// esbuild 打包更快，但是不能去除 console.log
 			minify: "esbuild",
 			//minify: "terser",
@@ -133,9 +141,9 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			rollupOptions: {
 				output: {
 					// Static resource classification and packaging
-					chunkFileNames: "assets/js/[name]-[hash].js",
-					entryFileNames: "assets/js/[name]-[hash].js",
-					assetFileNames: "assets/[ext]/[name]-[hash].[ext]"
+					chunkFileNames: "static/js/[name]-[hash].js",
+					entryFileNames: "static/js/[name]-[hash].js",
+					assetFileNames: "static/[ext]/[name]-[hash].[ext]"
 				}
 			}
 		}

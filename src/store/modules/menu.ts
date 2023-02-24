@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { MenuState } from "../interface";
+import { MenuState } from "../types";
 import piniaPersistConfig from "@/config/piniaPersist";
 
 // MenuStore

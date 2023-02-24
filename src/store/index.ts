@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import { GlobalState, ThemeConfigProp } from "./interface";
+import { GlobalState, ThemeConfigProp } from "./types";
 import { createPinia } from "pinia";
-import piniaPersistConfig from "@/config/piniaPersist";
+import piniaPersistConfig from "./piniaPersist";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
 // defineStore 调用后返回一个函数，调用该函数获得 Store 实体

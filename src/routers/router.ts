@@ -1,7 +1,6 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 // * 导入所有router
-// @ts-ignore
 const metaRouters = import.meta.globEager("./modules/*.ts");
 
 // * 处理路由表
@@ -19,7 +18,7 @@ const routes: RouteRecordRaw[] = [
 	{
 		path: "/login",
 		name: "login",
-		component: () => import("@/views/login/index.vue"),
+		component: () => import("@/views/login/login.vue"),
 		meta: {
 			requiresAuth: false,
 			title: "登录页",
@@ -35,7 +34,7 @@ const routes: RouteRecordRaw[] = [
 ];
 
 const router = createRouter({
-	history: createWebHashHistory(),
+	history: createWebHistory(),
 	routes,
 	strict: false,
 	// 切换页面，滚动到最顶部

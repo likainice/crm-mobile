@@ -13,6 +13,7 @@ export interface GlobalState {
 	assemblySize: string;
 	language: string;
 	themeConfig: ThemeConfigProp;
+	user?: any;
 }
 
 /* MenuState */
@@ -33,4 +34,10 @@ export interface AuthState {
 		[propName: string]: any;
 	};
 	authRouter: string[];
+}
+
+/* UserState */
+export interface UserState {
+	token: string;
+	userInfo: any;
 }
