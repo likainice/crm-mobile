@@ -14,8 +14,8 @@ export const GlobalStore = defineStore({
 		token: "",
 		// userInfo
 		userInfo: "",
-		// element组件大小
-		assemblySize: "small",
+		// 组件大小
+		assemblySize: "mini",
 		// language
 		language: "",
 		// themeConfig

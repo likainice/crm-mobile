@@ -1,5 +1,5 @@
 import Axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import { AxiosCanceler } from "@/api/helper/axiosCancel";
+import { AxiosCanceler } from "./axiosCancel";
 import router from "@/routers";
 import { checkStatus } from "./checkStatus";
 import { useUserStore } from "@/store/modules/user";

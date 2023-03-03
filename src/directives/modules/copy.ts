@@ -4,7 +4,7 @@
  * 接收参数：string类型/Ref<string>类型/Reactive<string>类型
  */
 import type { Directive, DirectiveBinding } from "vue";
-import { ElMessage } from "element-plus";
+import { showToast } from "vant";
 interface ElType extends HTMLElement {
 	copyData: string | number;
 	__handleClick__: any;
@@ -29,7 +29,7 @@ function handleClick(this: any) {
 	input.select();
 	document.execCommand("Copy");
 	document.body.removeChild(input);
-	ElMessage({
+	showToast({
 		type: "success",
 		message: "复制成功"
 	});

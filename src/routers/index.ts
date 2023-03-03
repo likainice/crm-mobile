@@ -2,8 +2,8 @@ import router from "@/routers/router";
 import NProgress from "@/config/nprogress";
 import { HOME_URL } from "@/config/config";
 import { AuthStore } from "@/store/modules/auth";
-import { GlobalStore } from "@/store";
-import { AxiosCanceler } from "@/api/helper/axiosCancel";
+import { AxiosCanceler } from "@/utils/request/axiosCancel";
+import { useUserStore } from "@/store/modules/user";
 
 const axiosCanceler = new AxiosCanceler();
 
@@ -20,8 +20,8 @@ router.beforeEach((to, from, next) => {
 	if (!to.matched.some(record => record.meta.requiresAuth)) return next();
 
 	// * 判断是否有Token
-	const globalStore = GlobalStore();
-	if (!globalStore.token) {
+	const { token } = useUserStore();
+	if (!token) {
 		next({
 			path: "/login"
 		});

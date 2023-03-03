@@ -1,12 +1,16 @@
 // * Menu
 declare namespace Menu {
 	interface MenuOptions {
-		path: string;
-		title: string;
+		path?: string;
+		title?: string;
 		icon?: string;
 		isLink?: string;
 		close?: boolean;
 		children?: MenuOptions[];
+		iconClass?: string;
+		navText?: string;
+		router?: string;
+		key?: string;
 	}
 }
 
@@ -36,7 +40,6 @@ declare module "*.scss" {
 
 declare module "*.vue" {
 	import type { DefineComponent } from "vue";
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
 	const component: DefineComponent<{}, {}, any>;
 	export default component;
 }

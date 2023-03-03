@@ -38,6 +38,7 @@ module.exports = {
 		"scss/at-import-partial-extension": null, // 解决不能引入scss文件
 		"value-no-vendor-prefix": null, // 关闭 vendor-prefix(为了解决多行省略 -webkit-box)
 		"scss/double-slash-comment-whitespace-inside": null,
+		"scss/double-slash-comment-empty-line-before": null,
 		"selector-pseudo-class-no-unknown": [
 			true,
 			{

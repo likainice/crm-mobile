@@ -2,7 +2,7 @@
 	<el-dialog v-model="dialogVisible" :title="`批量添加${parameter.title}`" :destroy-on-close="true" width="580px" draggable>
 		<el-form class="drawer-multiColumn-form" label-width="100px">
 			<el-form-item label="模板下载 :">
-				<el-button type="primary" :icon="Download" @click="downloadTemp">点击下载</el-button>
+				<el-button type="primary" @click="downloadTemp">点击下载</el-button>
 			</el-form-item>
 			<el-form-item label="文件上传 :">
 				<el-upload
@@ -36,8 +36,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useDownload } from "@/hooks/useDownload";
-import { Download } from "@element-plus/icons-vue";
-import { ElNotification } from "element-plus";
+import { showToast } from "vant";
 
 export interface ExcelParameterProps {
 	title: string; // 标题
@@ -87,46 +86,49 @@ const beforeExcelUpload = (file: any) => {
 	const isExcel =
 		file.type === "application/vnd.ms-excel" || file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 	const isLt5M = file.size / 1024 / 1024 < 5;
-	if (!isExcel)
-		ElNotification({
-			title: "温馨提示",
-			message: "上传文件只能是 xls / xlsx 格式！",
-			type: "warning"
-		});
-	if (!isLt5M)
-		ElNotification({
-			title: "温馨提示",
-			message: "上传文件大小不能超过 5MB！",
-			type: "warning"
-		});
+	if (!isExcel) showToast("上传文件只能是 xls / xlsx 格式！");
+	// ElNotification({
+	// 	title: "温馨提示",
+	// 	message: "上传文件只能是 xls / xlsx 格式！",
+	// 	type: "warning"
+	// });
+	if (!isLt5M) showToast("上传文件大小不能超过 5MB！");
+	// ElNotification({
+	// 	title: "温馨提示",
+	// 	message: "上传文件大小不能超过 5MB！",
+	// 	type: "warning"
+	// });
 	return isExcel && isLt5M;
 };
 
 // 文件数超出提示
 const handleExceed = (): void => {
-	ElNotification({
-		title: "温馨提示",
-		message: "最多只能上传一个文件！",
-		type: "warning"
-	});
+	showToast("最多只能上传一个文件！");
+	// ElNotification({
+	// 	title: "温馨提示",
+	// 	message: "最多只能上传一个文件！",
+	// 	type: "warning"
+	// });
 };
 
 // 上传错误提示
 const excelUploadError = (): void => {
-	ElNotification({
-		title: "温馨提示",
-		message: "导入数据失败，请您重新上传！",
-		type: "error"
-	});
+	showToast("导入数据失败，请您重新上传！");
+	// ElNotification({
+	// 	title: "温馨提示",
+	// 	message: "导入数据失败，请您重新上传！",
+	// 	type: "error"
+	// });
 };
 
 // 上传成功提示
 const excelUploadSuccess = (): void => {
-	ElNotification({
-		title: "温馨提示",
-		message: "导入数据成功！",
-		type: "success"
-	});
+	showToast("导入数据成功！");
+	// ElNotification({
+	// 	title: "温馨提示",
+	// 	message: "导入数据成功！",
+	// 	type: "success"
+	// });
 };
 
 defineExpose({

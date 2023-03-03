@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { UserState } from "../types";
-import piniaPersistConfig from "@/config/piniaPersist";
+import piniaPersistConfig from "../piniaPersist";
 import { apiLogin, apiRefreshToken, apiWwCodeLogin } from "@/api";
 import { Base64 } from "js-base64";
 

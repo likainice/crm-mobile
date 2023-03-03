@@ -44,7 +44,14 @@ import {
 	TabbarItem,
 	SwipeCell,
 	Popover,
-	Loading
+	Loading,
+	ConfigProvider,
+	NumberKeyboard,
+	Grid,
+	GridItem,
+	Card,
+	Badge,
+	Space
 } from "vant";
 
 const plugins = [
@@ -88,10 +95,18 @@ const plugins = [
 	Collapse,
 	CollapseItem,
 	Toast,
-	Loading
+	Loading,
+	ConfigProvider,
+	NumberKeyboard,
+	Grid,
+	GridItem,
+	Card,
+	Badge,
+	Space
 ];
 
 const useComponents = [Swipe, SwipeItem, SwipeCell, Empty];
+// * 可在main问价下注册使用，不能与默认重复
 export const vantPlugins = {
 	install: function (vm: VM) {
 		plugins.forEach(item => {
@@ -102,3 +117,5 @@ export const vantPlugins = {
 		});
 	}
 };
+// * 默认导出走index文件下loadAllPlugins方法
+export default vantPlugins.install;

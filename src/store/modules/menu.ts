@@ -1,20 +1,44 @@
 import { defineStore } from "pinia";
 import { MenuState } from "../types";
-import piniaPersistConfig from "@/config/piniaPersist";
+import piniaPersistConfig from "../piniaPersist";
 
 // MenuStore
-export const MenuStore = defineStore({
+export const useMenuStore = defineStore({
 	id: "MenuState",
 	state: (): MenuState => ({
-		// menu collapse
-		isCollapse: false,
+		currentMenu: "",
 		// menu List
-		menuList: []
+		menuList: [
+			{
+				iconClass: "#icon-kefuyouxian",
+				navText: "客户",
+				router: "/customer",
+				key: "customer"
+			},
+			{
+				iconClass: "#icon-huodongyouxian",
+				navText: "小鹅通",
+				router: "/littleGoose",
+				key: "littleGoose"
+			},
+			{
+				iconClass: "#icon-shangmenfuwu",
+				navText: "客户服务",
+				router: "/service",
+				key: "service"
+			},
+			{
+				iconClass: "#icon-wodezichan",
+				navText: "财务",
+				router: "/finance",
+				key: "finance"
+			}
+		]
 	}),
 	getters: {},
 	actions: {
-		async setCollapse() {
-			this.isCollapse = !this.isCollapse;
+		async setCurrentMenu(current) {
+			this.currentMenu = current;
 		},
 		async setMenuList(menuList: Menu.MenuOptions[]) {
 			this.menuList = menuList;

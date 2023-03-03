@@ -10,8 +10,6 @@ import "@/styles/index.scss";
 import "@/assets/iconfont/iconfont.scss";
 // font css
 import "@/assets/fonts/font.scss";
-// element plus
-import ElementPlus from "element-plus";
 // custom directives
 import directives from "@/directives/index";
 // vue Router
@@ -19,11 +17,15 @@ import router from "@/routers/index";
 
 // pinia store
 import pinia from "@/store/index";
-// * vant
-import { vantPlugins } from "@/plugins/vant";
+// * vant 注册app.use(vantPlugins)
+//import { vantPlugins } from "@/plugins/vant";
 // * vant样式
 import "vant/lib/index.css";
+// * vant样式单位转换，配合postcss-pxtorem
+import "amfe-flexible";
+//所有组件
+import { loadAllPlugins } from "@/plugins";
 
 const app = createApp(App);
-
-app.use(router).use(pinia).use(directives).use(ElementPlus).use(vantPlugins).mount("#app");
+loadAllPlugins(app);
+app.use(router).use(pinia).use(directives).mount("#app");

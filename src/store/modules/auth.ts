@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { AuthState } from "../types";
-import piniaPersistConfig from "@/config/piniaPersist";
+import piniaPersistConfig from "../piniaPersist";
 
 // AuthStore
 export const AuthStore = defineStore({

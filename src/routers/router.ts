@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-
+import { HOME_URL } from "@/config/config";
 // * 导入所有router
 const metaRouters = import.meta.globEager("./modules/*.ts");
 
@@ -13,17 +13,45 @@ Object.keys(metaRouters).forEach(item => {
 const routes: RouteRecordRaw[] = [
 	{
 		path: "/",
-		redirect: { name: "login" }
+		redirect: HOME_URL
 	},
 	{
 		path: "/login",
 		name: "login",
-		component: () => import("@/views/login/login.vue"),
+		component: () => import("@/views/login/index.vue"),
 		meta: {
 			requiresAuth: false,
 			title: "登录页",
 			key: "login"
 		}
+	},
+	{
+		path: "/notify",
+		name: "notify",
+		children: [
+			{
+				path: "/notify",
+				name: "notify",
+				component: () => import("@/views/notify/index.vue"),
+				meta: {
+					keepAlive: true,
+					requiresAuth: false,
+					title: "消息通知",
+					key: "notify"
+				}
+			},
+			{
+				path: "detail",
+				name: "notifyDetail",
+				component: () => import("@/views/notify/detail.vue"),
+				meta: {
+					keepAlive: true,
+					requiresAuth: false,
+					title: "消息通知详情",
+					key: "notifyDetail"
+				}
+			}
+		]
 	},
 	...routerArray,
 	{
@@ -43,7 +71,7 @@ const router = createRouter({
 			if (savedPosition) {
 				return savedPosition;
 			} else {
-				if (from.meta.saveSrollTop) {
+				if (from.meta.scrollTop) {
 					const top: number = document.documentElement.scrollTop || document.body.scrollTop;
 					resolve({ left: 0, top });
 				}

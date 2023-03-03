@@ -13,7 +13,7 @@ qfb mobile，基于 Vue3、TypeScript、Vite2、Pinia、vantUI
 
 ### 二、Git 仓库地址 (欢迎 Star⭐)
 
-- Git：ssh://git@47.105.116.5:22/data/qfb_mobile.git
+- Git：http://47.104.169.147:18721/icfo-operation-platforms/icfo-operation-platform-wecom-ui.git
 
 ### 三、🔨🔨🔨 项目功能
 

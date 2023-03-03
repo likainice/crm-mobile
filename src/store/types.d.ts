@@ -18,7 +18,7 @@ export interface GlobalState {
 
 /* MenuState */
 export interface MenuState {
-	isCollapse: boolean;
+	currentMenu: any;
 	menuList: Menu.MenuOptions[];
 }
 

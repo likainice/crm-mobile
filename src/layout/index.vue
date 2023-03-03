@@ -1,27 +1,36 @@
 <template>
 	<div class="main-box">
-		<!-- 开启顶部安全区适配 -->
-		<!--		<van-nav-bar safe-area-inset-top />-->
+		<!-- 顶部安全区 -->
+		<div class="van-safe-area-top"></div>
+		<!--内容-缓存-->
 		<router-view v-slot="{ Component, route }">
-			<transition appear name="fade-transform" mode="out-in">
-				<keep-alive :include="cacheRouter">
-					<component :is="Component" :key="route.path"></component>
-				</keep-alive>
-			</transition>
+			<keep-alive :include="cacheRouter">
+				<component :is="Component" :key="route.path"></component>
+			</keep-alive>
 		</router-view>
-		<Footer></Footer>
-		<!-- 开启底部安全区适配 -->
-		<van-number-keyboard safe-area-inset-bottom />
+		<!--底部-->
+		<Component :is="footerNavC"></Component>
+		<!--返回顶部-->
+		<BackTop bottom="100"></BackTop>
+		<!-- 底部安全区 -->
+		<div class="van-safe-area-bottom"></div>
 	</div>
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
+import NavFooter from "@/components/NavFooter/index.vue";
+import { BackTop } from "vant";
+import { useRoute } from "vue-router";
 import cacheRouter from "@/routers/cacheRouter";
-import { onMounted } from "vue";
-import Footer from "./Footer/index.vue";
-onMounted(async () => {});
+
+const footerNavC = computed(() => {
+	return useRoute()?.meta?.navFooter ? NavFooter : false;
+});
 </script>
 
 <style scoped lang="scss">
-@import "./index.scss";
+.main-box {
+	min-height: 100vh;
+}
 </style>
