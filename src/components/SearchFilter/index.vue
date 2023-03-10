@@ -1,26 +1,19 @@
 <!--筛选弹框-->
 <template>
-	<div class="pageSearch flx-justify-between">
-		<div class="pageSearch-dropdown" v-if="props.showDropdown">
+	<div class="SearchFilter side-padding flx-justify-between">
+		<div class="SearchFilter-dropdown" v-if="props.showDropdown">
 			<van-dropdown-menu>
 				<van-dropdown-item v-model="dropdownValue" :options="props.dropdownOptions" @change="onDropdown" />
 			</van-dropdown-menu>
 		</div>
-		<div class="pageSearch-search">
-			<van-search
-				v-model="searchValue"
-				show-action
-				left-icon="none"
-				:placeholder="props.placeholder"
-				@search="onSearch"
-				@clear="clear"
-			>
+		<div class="SearchFilter-search">
+			<van-search v-model="searchValue" show-action left-icon="none" :placeholder="props.placeholder" @search="onSearch">
 				<template #action>
 					<van-icon name="search" @click="onSearch" />
 				</template>
 			</van-search>
 		</div>
-		<div class="pageSearch-filter" v-if="props.showFilter" @click="showFilterPopup = !showFilterPopup">
+		<div class="SearchFilter-filter" v-if="props.showFilter" @click="showFilterPopup = !showFilterPopup">
 			<van-icon name="filter-o" />
 			筛选
 		</div>
@@ -73,9 +66,6 @@ const searchValue = ref(props.initSearchValue);
 const dropdownValue = ref(props.initDropdownValue);
 const filterValue = ref(props.initFilterValue);
 const showFilterPopup = ref(false);
-const clear = () => {
-	alert();
-};
 //查询
 const onSearch = () => {
 	searchValue.value && emit("changeSearch", searchValue.value);
@@ -89,7 +79,6 @@ const onFilter = () => {
 	filterValue.value && emit("changeFilter", filterValue.value);
 };
 
-//双向数据
 /*const active = computed({
   get() {
     return props.value;
@@ -100,13 +89,13 @@ const onFilter = () => {
 });*/
 </script>
 <style lang="scss" scoped>
-.pageSearch {
-	padding: 0 30px;
+.SearchFilter {
 	&-dropdown {
-		width: 160px;
-		margin: 0 20px 0 -20px;
+		//width: 160px;
+		padding-right: 30px;
 		:deep(.van-dropdown-menu) {
 			.van-dropdown-menu__title {
+				padding-left: 0;
 				font-style: oblique;
 				font-weight: bold;
 			}
@@ -120,39 +109,30 @@ const onFilter = () => {
 		:deep(.van-search) {
 			padding: 30px 0;
 			.van-search__content {
-				padding-right: 10px;
 				background: transparent;
 				border: 1px solid $primary-color;
 				border-right: 0;
 				border-radius: 10px 0 0 10px;
-				.van-field {
-					height: auto;
-					padding: 6px 0;
-					input::placeholder {
-						font-size: 20px;
-					}
-				}
 			}
 
 			.van-search__action {
-				padding: 12px;
-				line-height: inherit;
+				height: var(--van-search-input-height);
 				color: #fff;
 				background: $primary-color;
 				border: 1px solid $primary-color;
 				border-radius: 0 10px 10px 0;
 
 				.van-icon {
-					font-size: 36px;
+					font-size: 40px;
 					vertical-align: middle;
 				}
 			}
 		}
 	}
-
 	&-filter {
 		width: 100px;
-		margin-left: 20px;
+		margin-left: 15px;
+		text-align: right;
 		.van-icon {
 			font-size: 30px;
 		}

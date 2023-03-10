@@ -52,18 +52,18 @@ service.interceptors.response.use(
 		const { data, config } = response;
 		// * 在请求结束后，移除本次请求
 		axiosCanceler.removePending(config);
-		const globalStore = useUserStore();
-		const codeList = [1040400, 1040400, 1000001, 1040000];
+		const userStore = useUserStore();
+		const codeList = [1040400, 1040400, 1000001, 1040000, 1041000];
 		if (codeList.includes(data.code) || !data.code) {
 			showToast(data.message || "失败");
-			globalStore.doLogout(); // 退出登录
+			userStore.doLogout(); // 退出登录
 			router.replace({
 				path: "/login"
 			});
 			return Promise.reject(data);
 		} else if (data.code === 1000409) {
 			// 企业微信处理未绑定
-			globalStore.doLogout(); // 退出登录
+			userStore.doLogout(); // 退出登录
 			router.replace({
 				path: "/wxLogin"
 			});

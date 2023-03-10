@@ -1,0 +1,39 @@
+//业绩、绩效样式
+.van-tabs {
+  position: sticky;
+  top: 91px;
+  z-index: 1;
+  background: #fff;
+}
+.per-grant {
+  padding: 10px 30px 36px 74px;
+}
+.per-total {
+  padding: 0 30px;
+  :deep(.van-row) {
+    padding: 30px 0;
+    border-bottom: 4px solid $border-color;
+  }
+  .total-cell1 {
+    font-size: 40px;
+    color: #666;
+    &-fs {
+      font-size: 30px;
+      color: #666;
+    }
+  }
+  .total-cell2 {
+    margin: 30px 0;
+    font-size: 50px;
+    font-weight: bold;
+    &-fs {
+      margin: 30px 0;
+      font-size: 30px;
+      font-weight: bold;
+    }
+  }
+  .total-cell3 {
+    color: #999;
+  }
+}
+

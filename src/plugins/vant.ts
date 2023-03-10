@@ -51,7 +51,11 @@ import {
 	GridItem,
 	Card,
 	Badge,
-	Space
+	Space,
+	DatePicker,
+	Stepper,
+	Step,
+	Steps
 } from "vant";
 
 const plugins = [
@@ -102,7 +106,11 @@ const plugins = [
 	GridItem,
 	Card,
 	Badge,
-	Space
+	Space,
+	DatePicker,
+	Stepper,
+	Step,
+	Steps
 ];
 
 const useComponents = [Swipe, SwipeItem, SwipeCell, Empty];

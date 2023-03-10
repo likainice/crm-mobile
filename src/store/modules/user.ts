@@ -6,7 +6,7 @@ import { Base64 } from "js-base64";
 
 // UserStore
 export const useUserStore = defineStore({
-	id: "UserStore",
+	id: "UserState",
 	state: (): UserState => ({
 		// token
 		token: "",
@@ -80,7 +80,7 @@ export const useUserStore = defineStore({
 					base2: base2
 				};
 
-				this.setToken(token);
+				this.setToken(token.authorization);
 				if (data.content) {
 					this.setUserInfo({
 						...data.content,
@@ -97,5 +97,5 @@ export const useUserStore = defineStore({
 			sessionStorage.clear();
 		}
 	},
-	persist: piniaPersistConfig("UserStore")
+	persist: piniaPersistConfig("UserState", "session")
 });

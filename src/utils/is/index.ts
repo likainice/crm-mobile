@@ -32,6 +32,13 @@ export const isObject = (val: any): val is Record<any, any> => {
 };
 
 /**
+ * @description: 是否为空对象
+ */
+export const isEmptyObj = (obj: any) => {
+	return Object.keys(obj).length === 0;
+};
+
+/**
  * @description:  是否为时间
  */
 export function isDate(val: unknown): val is Date {

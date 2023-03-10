@@ -13,7 +13,6 @@ import resolveExternalsPlugin from "vite-plugin-resolve-externals";
 //import AutoImport from "unplugin-auto-import/vite";
 //import Components from "unplugin-vue-components/vite";
 //import { VantResolver } from "unplugin-auto-import/resolvers";
-
 // @see: https://vitejs.dev/config/
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 	// 当前工作目录路径
@@ -75,6 +74,11 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			}),
 			// * name 可以写在 script 标签上
 			VueSetupExtend(),
+			// * vite 配置cdn导入的包文件，类似webpack的externals
+			resolveExternalsPlugin({
+				BMap: "BMap",
+				WwLogin: "WwLogin"
+			}),
 			// * 打包分析
 			viteEnv.VITE_REPORT && visualizer(),
 			// * gzip compress
@@ -85,12 +89,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 					threshold: 10240,
 					algorithm: "gzip",
 					ext: ".gz"
-				}),
-			// * vite 配置cdn导入的包文件，类似webpack的externals
-			resolveExternalsPlugin({
-				BMap: "BMap",
-				WwLogin: "WwLogin"
-			})
+				})
 
 			// * demand import element(如果使用了cdn引入,没必要使用element自动导入了)
 			/*AutoImport({

@@ -11,8 +11,6 @@
 	<OrderList :data-source="[]" />
 </template>
 <script setup lang="ts">
-import HeaderBack from "@/components/Header/Back.vue";
-import SearchFilter from "@/components/SearchFilter/index.vue";
 import { ref } from "vue";
 import OrderList from "@/views/littleGoose/components/orderList.vue";
 const filterOptions = ref([

@@ -1,8 +1,14 @@
 <!--列表页（下拉、滚动加载）-->
 <template>
-	<div class="page-list">
+	<div class="page-list clearfix">
 		<van-pull-refresh v-model="refreshing" :disabled="disabled" @refresh="onRefresh">
-			<van-list v-model:loading="loadings" :finished="finished" finished-text="没有更多了~" @load="onLoad">
+			<van-list
+				v-model:loading="loadings"
+				:immediate-check="false"
+				:finished="finished"
+				finished-text="没有更多了~"
+				@load="onLoad"
+			>
 				<slot></slot>
 			</van-list>
 		</van-pull-refresh>
@@ -10,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, toRefs, watch } from "vue";
+import { defineComponent, ref, toRefs, watch } from "vue";
 
 export default defineComponent({
 	name: "PageList",
@@ -23,7 +29,7 @@ export default defineComponent({
 		//是否已加载完成，加载完成后不再触发 load 事件
 		finished: {
 			type: Boolean,
-			default: false
+			default: false //初始值为true  不然一直loading
 		},
 		//是否下拉刷新
 		disabled: {
@@ -34,22 +40,8 @@ export default defineComponent({
 	setup(props, { emit }) {
 		const list = ref([]);
 		const refreshing = ref(false);
-		const loadings = computed(() => {
-			return props.loading;
-		});
+		const loadings = ref(props.loading);
 		const onLoad = () => {
-			// console.log("load", 111, refreshing.value);
-			// setTimeout(() => {
-			// 	if (refreshing.value) {
-			// 		list.value = [];
-			// 		refreshing.value = false;
-			// 	}
-			//
-			// 	for (let i = 0; i < 10; i++) {
-			// 		list.value.push(list.value.length + 1);
-			// 	}
-			// 	emit("update:loading", false);
-			// }, 1000);
 			emit("load", {});
 		};
 
@@ -59,6 +51,7 @@ export default defineComponent({
 		watch(
 			() => props.loading,
 			val => {
+				loadings.value = val;
 				if (!val) refreshing.value = false;
 			}
 		);

@@ -23,6 +23,7 @@
 <script lang="ts" setup name="FilterPopup">
 import { ref, useAttrs, watch } from "vue";
 import { FilterOptionType } from "@/components/SearchFilter/data";
+import { isEmptyObj } from "@/utils/is";
 
 const props = withDefaults(
 	defineProps<{
@@ -59,8 +60,11 @@ const onRest = () => {
 };
 
 const onOk = () => {
-	emit("update:check", selectValue.value); //v-model绑定
-	emit("onOk", selectValue.value); //通信
+	const isEmptyValue = !Object.values(selectValue.value).some(i => i && !isEmptyObj(i));
+	console.log(isEmptyValue);
+	const newValue = !isEmptyValue ? selectValue.value : {};
+	emit("update:check", newValue); //v-model绑定
+	emit("onOk", newValue); //通信
 	emit("update:show", false);
 };
 </script>

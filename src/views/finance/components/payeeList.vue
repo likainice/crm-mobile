@@ -43,5 +43,44 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "./index.scss";
+.payee-list {
+	padding: 20px 30px 0;
+	&-item {
+		margin-bottom: 60px;
+		.date {
+			margin-bottom: 20px;
+			font-size: 30px;
+			color: #a5a5a5;
+			text-align: center;
+		}
+
+		.content {
+			padding: 50px 70px 20px;
+			border: 4px solid $border-color;
+			border-radius: 10px;
+
+			&-top {
+				margin-bottom: 40px;
+				color: #a5a5a5;
+				text-align: center;
+
+				&-money {
+					margin-top: 20px;
+					font-size: 40px;
+					font-weight: bold;
+					color: #333;
+				}
+			}
+
+			&-desc {
+				margin-bottom: 15px;
+				color: #a5a5a5;
+
+				span {
+					color: #333;
+				}
+			}
+		}
+	}
+}
 </style>

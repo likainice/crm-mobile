@@ -168,3 +168,12 @@ export function filterEnum(callValue: any, enumData: any[] = [], type?: string):
 	if (type == "tag") return filterData?.tagType ? filterData.tagType : "";
 	return filterData ? filterData.label : "--";
 }
+
+/**
+ * @description 设置页面title
+ * @param routerTitle
+ */
+export default function setPageTitle(routerTitle?: string | unknown): void {
+	const defaultTitle = import.meta.env.VITE_GLOB_APP_TITLE;
+	window.document.title = routerTitle ? `${routerTitle} | ${defaultTitle}` : `${defaultTitle}`;
+}

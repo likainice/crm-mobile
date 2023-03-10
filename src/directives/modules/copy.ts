@@ -4,7 +4,7 @@
  * 接收参数：string类型/Ref<string>类型/Reactive<string>类型
  */
 import type { Directive, DirectiveBinding } from "vue";
-import { showToast } from "vant";
+import { showNotify } from "vant";
 interface ElType extends HTMLElement {
 	copyData: string | number;
 	__handleClick__: any;
@@ -24,15 +24,17 @@ const copy: Directive = {
 
 function handleClick(this: any) {
 	const input = document.createElement("input");
+	input.style.position = "fixed";
 	input.value = this.copyData.toLocaleString();
 	document.body.appendChild(input);
 	input.select();
 	document.execCommand("Copy");
 	document.body.removeChild(input);
-	showToast({
-		type: "success",
-		message: "复制成功"
-	});
+	// showToast({
+	// 	type: "success",
+	// 	message: "复制成功"
+	// });
+	showNotify({ type: "primary", message: "复制成功" });
 }
 
 export default copy;

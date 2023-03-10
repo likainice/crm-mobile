@@ -1,9 +1,7 @@
 <!--消息-->
 <template>
 	<div class="notice_box" @click.stop="onNotice">
-		<svg class="icon" aria-hidden="true">
-			<use xlink:href="#icon-tongzhi1" />
-		</svg>
+		<SvgIcon name="icon-tongzhi1" />
 		<span class="notice_remake" v-if="noticeNum">{{ noticeNum }}</span>
 	</div>
 </template>
@@ -27,6 +25,8 @@ const getNotice = () => {
 		noticeNum.value = num;
 	}
 };
+// 暴露给父组件绑定ref的参数和方法
+// defineExpose({ searchParam, refresh: getTableList });
 </script>
 <style scoped lang="scss">
 .notice_box {
@@ -38,7 +38,7 @@ const getNotice = () => {
 		right: -8px;
 		width: 40px;
 		height: 40px;
-		font-size: 10px;
+		font-size: 18px;
 		line-height: 40px;
 		color: #fff;
 		background-color: red;

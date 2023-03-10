@@ -9,3 +9,5 @@ export interface DropdownOptionType {
 	text: string;
 	value: number;
 }
+
+export type OptionType = DropdownOptionType & { icon: string };

@@ -1,8 +1,7 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { RouteRecordRaw } from "vue-router";
 import { HOME_URL } from "@/config/config";
 // * 导入所有router
 const metaRouters = import.meta.globEager("./modules/*.ts");
-
 // * 处理路由表
 export const routerArray: RouteRecordRaw[] = [];
 Object.keys(metaRouters).forEach(item => {
@@ -10,11 +9,14 @@ Object.keys(metaRouters).forEach(item => {
 		routerArray.push(...metaRouters[item][key]);
 	});
 });
+
+// * 路由表
 const routes: RouteRecordRaw[] = [
 	{
 		path: "/",
 		redirect: HOME_URL
 	},
+	// * 登录
 	{
 		path: "/login",
 		name: "login",
@@ -25,6 +27,7 @@ const routes: RouteRecordRaw[] = [
 			key: "login"
 		}
 	},
+	// * 消息
 	{
 		path: "/notify",
 		name: "notify",
@@ -34,8 +37,8 @@ const routes: RouteRecordRaw[] = [
 				name: "notify",
 				component: () => import("@/views/notify/index.vue"),
 				meta: {
-					keepAlive: true,
 					requiresAuth: false,
+					keepAlive: true,
 					title: "消息通知",
 					key: "notify"
 				}
@@ -46,12 +49,48 @@ const routes: RouteRecordRaw[] = [
 				component: () => import("@/views/notify/detail.vue"),
 				meta: {
 					keepAlive: true,
-					requiresAuth: false,
 					title: "消息通知详情",
 					key: "notifyDetail"
 				}
 			}
 		]
+	},
+	// * 常见问题
+	{
+		path: "/faq",
+		name: "faq",
+		children: [
+			{
+				path: "/faq",
+				name: "faq",
+				component: () => import("@/views/faq/index.vue"),
+				meta: {
+					keepAlive: true,
+					title: "常见问题",
+					key: "faq"
+				}
+			},
+			{
+				path: "detail",
+				name: "faqDetail",
+				component: () => import("@/views/faq/detail.vue"),
+				meta: {
+					keepAlive: true,
+					title: "常见问题详情",
+					key: "faqDetail"
+				}
+			}
+		]
+	},
+	// * 意见反馈
+	{
+		path: "/feedBack",
+		name: "feedBack",
+		component: () => import("@/views/feedBack/index.vue"),
+		meta: {
+			title: "意见反馈",
+			key: "feedBack"
+		}
 	},
 	...routerArray,
 	{
@@ -61,23 +100,4 @@ const routes: RouteRecordRaw[] = [
 	}
 ];
 
-const router = createRouter({
-	history: createWebHistory(),
-	routes,
-	strict: false,
-	// 切换页面，滚动到最顶部
-	scrollBehavior(to, from, savedPosition) {
-		return new Promise(resolve => {
-			if (savedPosition) {
-				return savedPosition;
-			} else {
-				if (from.meta.scrollTop) {
-					const top: number = document.documentElement.scrollTop || document.body.scrollTop;
-					resolve({ left: 0, top });
-				}
-			}
-		});
-	}
-});
-
-export default router;
+export default routes;

@@ -49,7 +49,7 @@ vue -V  查看版本是否安装成功
 - **Clone：**
 
 ```text
-git clone ssh://git@47.105.116.5:22/data/qfb_mobile.git
+git clone http://47.104.169.147:18721/icfo-operation-platforms/icfo-operation-platform-wecom-ui.git
 ```
 
 - **Install：**
@@ -85,7 +85,7 @@ npm run build:dev
 npm run build:test
 
 # 生产环境
-npm run build:pro
+npm run build
 ```
 
 - **Lint：**
@@ -98,14 +98,17 @@ npm run lint:eslint
 npm run lint:prettier
 
 # stylelint 格式化样式
-lint:stylelint
+npm run lint:stylelint
+
+# lint 以上全部执行
+npm run lint
 ```
 
 
 ### 六、文件资源目录 📚
 
 ```text
-qfb-mobile
+crm-mobile
 ├─ .vscode                # vscode推荐配置
 ├─ public                 # 静态资源文件（忽略打包）
 ├─ src

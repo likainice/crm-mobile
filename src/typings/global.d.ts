@@ -27,6 +27,7 @@ declare interface ViteEnv {
 	VITE_BUILD_GZIP: boolean;
 	VITE_REPORT: boolean;
 	VITE_API_BASEURL: string;
+	VITE_CONSOLE: string;
 }
 
 interface ImportMetaEnv extends ViteEnv {

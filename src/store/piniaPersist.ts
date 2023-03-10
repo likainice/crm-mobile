@@ -5,10 +5,10 @@ import { PersistedStateOptions } from "pinia-plugin-persistedstate";
  * @param {String} key 存储到持久化的 name
  * @return persist
  * */
-const piniaPersistConfig = (key: string) => {
+const piniaPersistConfig = (key: string, storage?: "local" | "session") => {
 	const persist: PersistedStateOptions = {
 		key,
-		storage: window.localStorage
+		storage: storage === "session" ? window.sessionStorage : window.localStorage
 		// storage: window.sessionStorage,
 	};
 	return persist;

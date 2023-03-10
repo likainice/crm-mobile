@@ -28,7 +28,6 @@
 	</div>
 </template>
 <script lang="ts" setup>
-import HeaderBack from "@/components/Header/Back.vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const onNotify = item => {

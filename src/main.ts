@@ -14,18 +14,27 @@ import "@/assets/fonts/font.scss";
 import directives from "@/directives/index";
 // vue Router
 import router from "@/routers/index";
-
 // pinia store
 import pinia from "@/store/index";
+
 // * vant 注册app.use(vantPlugins)
 //import { vantPlugins } from "@/plugins/vant";
+
 // * vant样式
 import "vant/lib/index.css";
 // * vant样式单位转换，配合postcss-pxtorem
 import "amfe-flexible";
-//所有组件
+// * VConsole
+import VConsole from "vconsole";
+
+if (import.meta.env.VITE_CONSOLE === "true") {
+	new VConsole({ maxLogNumber: 1000, defaultPlugins: ["network", "element", "storage"] }); //打印1000次后自动清除
+}
+
+// * 所有组件
 import { loadAllPlugins } from "@/plugins";
 
 const app = createApp(App);
 loadAllPlugins(app);
+
 app.use(router).use(pinia).use(directives).mount("#app");

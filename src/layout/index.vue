@@ -9,9 +9,9 @@
 			</keep-alive>
 		</router-view>
 		<!--底部-->
-		<Component :is="footerNavC"></Component>
+		<Component :is="footerComponent"></Component>
 		<!--返回顶部-->
-		<BackTop bottom="100"></BackTop>
+		<BackTop v-if="isBackTop" bottom="90"></BackTop>
 		<!-- 底部安全区 -->
 		<div class="van-safe-area-bottom"></div>
 	</div>
@@ -19,13 +19,17 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import NavFooter from "@/components/NavFooter/index.vue";
+import NavFooter from "@/components/Footer/index.vue";
 import { BackTop } from "vant";
 import { useRoute } from "vue-router";
 import cacheRouter from "@/routers/cacheRouter";
 
-const footerNavC = computed(() => {
-	return useRoute()?.meta?.navFooter ? NavFooter : false;
+const footerComponent = computed(() => {
+	return useRoute()?.meta?.navFooter ? NavFooter : null;
+});
+
+const isBackTop = computed(() => {
+	return !useRoute()?.meta?.backTopHidden;
 });
 </script>
 

@@ -1,33 +1,45 @@
-import router from "@/routers/router";
-import NProgress from "@/config/nprogress";
+import routes from "@/routers/router";
+import NProgress from "@/utils/nprogress";
 import { HOME_URL } from "@/config/config";
 import { AuthStore } from "@/store/modules/auth";
 import { AxiosCanceler } from "@/utils/request/axiosCancel";
 import { useUserStore } from "@/store/modules/user";
+import setPageTitle from "@/utils/util";
+import { createRouter, createWebHistory } from "vue-router";
 
 const axiosCanceler = new AxiosCanceler();
-
+/**
+ * @description 路由创建
+ * */
+const router = createRouter({
+	history: createWebHistory(),
+	routes,
+	strict: false
+});
 /**
  * @description 路由拦截 beforeEach
  * */
 router.beforeEach((to, from, next) => {
-	NProgress.configure({ showSpinner: false });
 	NProgress.start();
+	// * 页面 title
+	setPageTitle(to.meta.title);
+
 	// * 在跳转路由之前，清除所有的请求
 	axiosCanceler.removeAllPending();
 
-	// * 判断当前路由是否需要访问权限
-	if (!to.matched.some(record => record.meta.requiresAuth)) return next();
-
 	// * 判断是否有Token
-	const { token } = useUserStore();
-	if (!token) {
+	const { token, doLogout } = useUserStore();
+	if (!token && to.path !== "/login") {
+		doLogout();
 		next({
 			path: "/login"
 		});
 		NProgress.done();
 		return;
 	}
+
+	// * 判断当前路由是否需要访问权限
+	if (!to.matched.some(record => record.meta.requiresAuth)) return next();
 
 	const authStore = AuthStore();
 	// * Dynamic Router(动态路由，根据后端返回的菜单数据生成的一维数组)
@@ -45,6 +57,8 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach(() => {
 	NProgress.done();
+	// * 返回顶部
+	window.scrollTo(0, 0);
 });
 
 export default router;
